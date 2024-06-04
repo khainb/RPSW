@@ -143,8 +143,8 @@ class Discriminator_small(nn.Module):
     h2 = self.conv2(h1,t_embed)   
    
     h3 = self.conv3(h2,t_embed)
-   
-    
+
+    saved_feature = h3
     out = self.conv4(h3,t_embed)
     
     batch, channel, height, width = out.shape
@@ -164,7 +164,7 @@ class Discriminator_small(nn.Module):
     out = out.view(out.shape[0], out.shape[1], -1).sum(2)
     out = self.end_linear(out)
     
-    return out
+    return out, saved_feature
 
 
 class Discriminator_large(nn.Module):
